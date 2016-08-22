@@ -13,7 +13,9 @@ body {
 h1 {
   color: #FF3333;
   text-align: center;
-  font-family: Georgia, Times, serif;
+  /*font-family: Georgia, Times, serif;*/
+  font-size: 50px;
+  font-family: 'Architects Daughter', cursive;
 }
 
 .big_main {
@@ -21,7 +23,6 @@ h1 {
   width: 100%;
   background-image: url("http://images.media-allrecipes.com/images/50856.jpg");
   background-repeat: repeat;
-
 }
 
 main {
