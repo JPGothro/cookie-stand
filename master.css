@@ -1,0 +1,41 @@
+/* CSS styling */
+
+/** {
+  outline: 2px solid black;
+}*/
+
+body {
+  width: 100%;
+  height: 900px;
+  background-color: #e0ffff;
+}
+
+h1 {
+  color: #FF3333;
+  text-align: center;
+  font-family: Georgia, Times, serif;
+}
+
+.big_main {
+  margin: 0 auto;
+  width: 100%;
+  background-image: url("http://images.media-allrecipes.com/images/50856.jpg");
+  background-repeat: repeat;
+
+}
+
+main {
+  margin: 0 auto;
+  width: 790px;
+}
+
+.main_text_wrapper {
+  color: #ff4d4d;
+  text-align: center;
+  font-family: Georgia, Times, serif;
+}
+
+p {
+  width: 63%;
+  margin: 0 auto;
+}
