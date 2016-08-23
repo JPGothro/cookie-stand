@@ -1,7 +1,7 @@
 /* CSS styling */
 
 /** {
-  outline: 2px solid black;
+  outline: 2px solid blue;
 }*/
 
 body {
@@ -45,15 +45,36 @@ p {
   list-style-type: none;
 }
 
-li {
-  list-style-type: circle;
+#store_data {
+  width: 1300px;
+  margin: auto;
 }
 
+
 table {
+  border: 2px solid black;
+  width: 1500px;
+  margin-left: 0px;
+  empty-cells: show;
+}
+
+th, td {
   border: 1px solid black;
+  border-spacing: 0px;
 }
 
 th {
   font-weight: bold;
   font-family: Verdana, serif;
+  width: 40px;
+}
+
+thead th, tr th {
+  border-bottom: 2px solid black;
+  text-align: center;
+  width: auto;
+}
+
+td {
+  text-align: right;
 }
