@@ -40,3 +40,11 @@ p {
   width: 63%;
   margin: 0 auto;
 }
+
+.nav_item {
+  list-style-type: none;
+}
+
+li {
+  list-style-type: circle;
+}
