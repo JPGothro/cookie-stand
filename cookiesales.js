@@ -10,6 +10,7 @@ function Store (name, min, max, avg) {
   this.avgCookiesPurchased = avg;
   this.totalCookies = 0;
   this.hourlyCookies = [];
+  this.hoursOpenArray = [];
 }
 
 // creating object functions and putting them on the prototype
@@ -31,6 +32,22 @@ Store.prototype.cookiesPerDay = function () {
   };
 };
 
+Store.prototype.hoursOpen = function () {
+  var hour = 0;
+  var hourText = '';
+  for (var h = 0; h < this.hourlyCookies.length; h++) {
+    hour = h + 6;
+    if (hour > 12) {
+      hourText = (hour - 12) + ' pm: ';
+    } else if ( hour < 12) {
+      hourText = hour + ' am: ';
+    } else {
+      hourText = hour + ' pm: ';
+    };
+    this.hoursOpenArray[h] = hourText;
+  };
+};
+
 Store.prototype.displayOnPage = function () {
   // generate html to display data on the page.
   this.cookiesPerDay();
@@ -43,19 +60,10 @@ Store.prototype.displayOnPage = function () {
   h2.textContent = this.storeName;
   ul.appendChild(h2);
 
-  var hour = 0;
-  var hourText = '';
+  this.hoursOpen();
   for (var k = 0; k < this.hourlyCookies.length; k++) {
     liIn[k] = document.createElement('li');
-    hour = k + 7;
-    if (hour > 12) {
-      hourText = (hour - 12) + ' pm: ';
-    } else if ( hour < 12) {
-      hourText = hour + ' am: ';
-    } else {
-      hourText = hour + ' pm: ';
-    }
-    liIn[k].textContent = hourText + this.hourlyCookies[k];
+    liIn[k].textContent = this.hoursOpenArray[k] + this.hourlyCookies[k];
     ul.appendChild(liIn[k]);
   }
   liOut.textContent = 'Total: ' + this.totalCookies;
