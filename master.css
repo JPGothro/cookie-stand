@@ -35,6 +35,14 @@ main {
   font-family: Georgia, Times, serif;
 }
 
+#bears {
+  text-decoration: blink;
+}
+
+h2 {
+  text-align: center;
+}
+
 p {
   width: 53%;
   margin: 0 auto;
@@ -47,9 +55,10 @@ p {
   list-style-type: none;
 }
 
-#store_data {
-  width: 1300px;
+#store_data, #store_cust_data {
+  width: 1500px;
   margin: auto;
+  background-color: #33ccff;
 }
 
 
@@ -58,6 +67,7 @@ table {
   width: 1500px;
   margin-left: 0px;
   empty-cells: show;
+  margin-bottom: 10px;
 }
 
 th, td {
@@ -85,4 +95,19 @@ tr th{
 
 td {
   text-align: right;
+}
+
+form {
+  width: 300px;
+  background-color: #33ccff;
+  align-items: stretch;
+}
+
+form p {
+  color: black;
+}
+
+input {
+  align-items: flex-end;
+  background-color: #e0ffff;
 }

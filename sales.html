@@ -7,8 +7,33 @@
   </head>
   <body>
     <h1>Sales info by Store</h1>
+
+    <h2>Number of Cookies needed per hour by Store</h2>
     <main id="store_data">
     </main>
+
+    <h2>Number of Customers served per hour by Store</h2>
+    <main id="store_cust_data">
+    </main>
+
+    <h3>Add a new store below:</h3>
+    <form id="add_store_form">
+
+      <p><label for="store_name">Store Name: </label>
+      <input type="text" name="store_name" required>
+
+      <p><label for="min_num_cust">Min Nbr Customers: </label>
+      <input type="text" name="min_num_cust" required>
+
+      <p><label for="max_num_cust">Max Nbr Customers: </label>
+      <input type="text" name="max_num_cust" required>
+
+      <p><label for="avg_cookies_purch">Average Nbr Cookies bought by each Customer: </label>
+      <input type="text" name="avg_cookies_purch" required>
+
+      <p><button type="submit" name="add_store">Add Store</button>
+    </form>
+
     <nav>
       <ul>
         <li class="nav_item"><a href="index.html">Home</a></li>
