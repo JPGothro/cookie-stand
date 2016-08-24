@@ -97,7 +97,14 @@ td {
   text-align: right;
 }
 
+h3 {
+  margin-bottom: 0;
+}
+
 form {
+  border-style: double;
+  border-width: 2px;
+  border-color: black;
   width: 300px;
   background-color: #33ccff;
   align-items: stretch;

@@ -91,6 +91,67 @@ Store.prototype.createCustTableData = function () {
 
 // ------------- Now a couple general functions
 
+function populateTables() {
+  // clear any totals to be used
+  for (var s = 0; s < allStores.length; s++) {
+    // for each store, reset total values, clear customer array data
+    allStores[s].totalCookies = 0;
+    allStores[s].hourlyCustomers = [];
+  }
+
+  // clear footer totals...
+  for (var t = 0; t < footTotals.length; t++) {
+    footTotals[t] = 0;
+  }
+
+  // clear the footer grand total, too.
+  footGrandTotal = 0;
+
+  // create the table to hold the store cookie data
+  var salesTable = document.createElement('table');
+  createHdr(salesTable);
+
+  var salesBody  = document.createElement('tbody');
+  // now for each store, get it's data
+  for (var m = 0; m < allStores.length; m++) {
+    allStores[m].createCookieTableData();
+    // put row of data into body
+    salesBody.appendChild(allStores[m].tableRow);
+
+    // while we are looping through the stores, generate TOTALS
+    for (var c = 0; c < allStores[m].hourlyCookies.length; c++){
+      footTotals[c] += allStores[m].hourlyCookies[c];
+    }
+    footGrandTotal += allStores[m].totalCookies;
+  }
+  // put the body into the table
+  salesTable.appendChild(salesBody);
+
+  // add the footer
+  createFtr(salesTable);
+
+  var storeData = document.getElementById('store_data');
+  storeData.appendChild(salesTable);
+
+  // hope for the best!
+
+  // ----------- another table of customer data, precursor to 'tossers'
+  // create the table to hold the store customer data, it uses the same header data
+  var custTable = document.createElement('table');
+  createHdr(custTable);
+
+  var custBody  = document.createElement('tbody');
+  for (var i = 0; i < allStores.length; i++) {
+    custBody.appendChild(allStores[i].createCustTableData());
+  };
+
+  custTable.appendChild(custBody);
+  var storeCustData = document.getElementById('store_cust_data');
+
+  storeCustData.appendChild(custTable);
+
+}
+
 // create the header and append it to the passed table
 function createHdr(theTable) {
   // create table header here
@@ -157,7 +218,7 @@ function createFtr (theTable) {
 };
 // ------------ Done with general functions
 
-// Now run the 'control' script
+// Now run the 'controlling' script =+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
 
 // crate an array of all the stores
 var allStores = [];
@@ -168,52 +229,14 @@ allStores.push(new Store('Seattle Center', 11, 28, 3.7));
 allStores.push(new Store('Capitol Hill', 20, 38, 2.3));
 allStores.push(new Store('Alki', 2, 16, 4.6));
 
-// create the table to hold the store cookie data
-var salesTable = document.createElement('table');
-createHdr(salesTable);
-
-var salesBody  = document.createElement('tbody');
+// call new populate tables function...
 // these two variables below are used when creating the footer, but populated
-// as eah table is processed.
+// as each store is processed.
 var footTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var footGrandTotal = 0;
-// now for each store, get it's data
-for (var m = 0; m < allStores.length; m++) {
-  allStores[m].createCookieTableData();
-  // put row of data into body
-  salesBody.appendChild(allStores[m].tableRow);
 
-  // while we are looping through the stores, generate TOTALS
-  for (var c = 0; c < allStores[m].hourlyCookies.length; c++){
-    footTotals[c] += allStores[m].hourlyCookies[c];
-  }
-  footGrandTotal += allStores[m].totalCookies;
-}
-// put the body into the table
-salesTable.appendChild(salesBody);
+populateTables();
 
-// add the footer
-createFtr(salesTable);
-
-var storeData = document.getElementById('store_data');
-storeData.appendChild(salesTable);
-
-// hope for the best!
-
-// ----------- another table of customer data, precursor to 'tossers'
-// create the table to hold the store customer data, it uses the same header data
-var custTable = document.createElement('table');
-createHdr(custTable);
-
-var custBody  = document.createElement('tbody');
-for (var i = 0; i < allStores.length; i++) {
-  custBody.appendChild(allStores[i].createCustTableData());
-};
-
-custTable.appendChild(custBody);
-var storeCustData = document.getElementById('store_cust_data');
-
-storeCustData.appendChild(custTable);
 
 // ================ Adding a store: can only happen after the sales page is loaded
 var addStoreForm = document.getElementById('add_store_form');
@@ -247,6 +270,10 @@ function handleSubmit() {
     event.target.min_num_cust.value = null;
     event.target.max_num_cust.value = null;
     event.target.avg_cookies_purch.value = null;
+
+    // now refresh the tables
+    clearAndRefresh();
+
   } else {
     // there was some validation error...
     console.log('Found an error validating input!', newStore);
@@ -306,4 +333,18 @@ function validateAddStore(formInput) {
   }
 
   return inputValid;
+}
+
+function clearAndRefresh() {
+  // clear the tables and refresh with any new stores...
+  var table1 = document.getElementById('store_data');
+  table1.textContent = '';
+
+  var table2 = document.getElementById('store_cust_data');
+  table2.textContent = '';
+
+  // they are cleared out, now recreate the data.
+  // call a populate tables function here (and in the original call)
+  populateTables();
+
 }
