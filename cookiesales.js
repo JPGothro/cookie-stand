@@ -12,6 +12,7 @@ function Store (name, min, max, avg) {
   this.hourlyCookies = [];
   this.tableRow;
   this.hourlyCustomers = [];
+  this.totalCustForStore = 0;
 }
 
 // creating object functions and putting them on the prototype
@@ -72,17 +73,17 @@ Store.prototype.createCustTableData = function () {
   rowName.textContent = this.storeName;
   bodyRow.appendChild(rowName);
 
-  var totalCustForStore = 0;
+  this.totalCustForStore = 0;
   for (var j = 0; j < this.hourlyCustomers.length; j++) {
     var elem = document.createElement('td');
     elem.textContent = this.hourlyCustomers[j];
     bodyRow.appendChild(elem);
-    totalCustForStore += this.hourlyCustomers[j];
+    this.totalCustForStore += this.hourlyCustomers[j];
   }
 
   // now put the total for the store into the row
   var td = document.createElement('td');
-  td.textContent = totalCustForStore;
+  td.textContent = this.totalCustForStore;
   bodyRow.appendChild(td);
 
   return bodyRow;
@@ -90,6 +91,15 @@ Store.prototype.createCustTableData = function () {
 // ------------- THAT IS ALL THE STORE OBJECT STUFF
 
 // ------------- Now a couple general functions
+function clearFooterData() {
+  // clear footer totals...
+  for (var t = 0; t < footTotals.length; t++) {
+    footTotals[t] = 0;
+  }
+
+  // clear the footer grand total, too.
+  footGrandTotal = 0;
+}
 
 function populateTables() {
   // clear any totals to be used
@@ -99,13 +109,7 @@ function populateTables() {
     allStores[s].hourlyCustomers = [];
   }
 
-  // clear footer totals...
-  for (var t = 0; t < footTotals.length; t++) {
-    footTotals[t] = 0;
-  }
-
-  // clear the footer grand total, too.
-  footGrandTotal = 0;
+  clearFooterData();
 
   // create the table to hold the store cookie data
   var salesTable = document.createElement('table');
@@ -118,7 +122,7 @@ function populateTables() {
     // put row of data into body
     salesBody.appendChild(allStores[m].tableRow);
 
-    // while we are looping through the stores, generate TOTALS
+    // while we are looping through the stores, generate hourly TOTALS
     for (var c = 0; c < allStores[m].hourlyCookies.length; c++){
       footTotals[c] += allStores[m].hourlyCookies[c];
     }
@@ -140,12 +144,24 @@ function populateTables() {
   var custTable = document.createElement('table');
   createHdr(custTable);
 
+  clearFooterData();
+
   var custBody  = document.createElement('tbody');
   for (var i = 0; i < allStores.length; i++) {
     custBody.appendChild(allStores[i].createCustTableData());
+    //
+    // while we are looping through the stores, generate hourly TOTALS
+    for (var d = 0; d < allStores[i].hourlyCustomers.length; d++) {
+      footTotals[d] += allStores[i].hourlyCustomers[d];
+    }
+    footGrandTotal += allStores[i].totalCustForStore;
   };
 
   custTable.appendChild(custBody);
+
+  // add the footer
+  createFtr(custTable);
+
   var storeCustData = document.getElementById('store_cust_data');
 
   storeCustData.appendChild(custTable);
