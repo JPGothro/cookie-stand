@@ -282,10 +282,10 @@ function handleSubmit() {
 
     allStores.push(newStore);
 
-    event.target.store_name.value = null;
-    event.target.min_num_cust.value = null;
-    event.target.max_num_cust.value = null;
-    event.target.avg_cookies_purch.value = null;
+    event.target.store_name.value = '';
+    event.target.min_num_cust.value = '';
+    event.target.max_num_cust.value = '';
+    event.target.avg_cookies_purch.value = '';
 
     // now refresh the tables
     clearAndRefresh();
