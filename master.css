@@ -35,6 +35,14 @@ main {
   font-family: Georgia, Times, serif;
 }
 
+#bears {
+  text-decoration: blink;
+}
+
+h2 {
+  text-align: center;
+}
+
 p {
   width: 53%;
   margin: 0 auto;
@@ -47,17 +55,26 @@ p {
   list-style-type: none;
 }
 
-#store_data {
-  width: 1300px;
+#store_data, #store_cust_data {
+  width: 1500px;
   margin: auto;
+  background-color: #33ccff;
 }
 
+#form_box {
+  width: 100%;
+}
+
+/*#form_box > * {
+  outline: 1px solid blue;
+}*/
 
 table {
   border: 2px solid black;
   width: 1500px;
   margin-left: 0px;
   empty-cells: show;
+  margin-bottom: 10px;
 }
 
 th, td {
@@ -85,4 +102,35 @@ tr th{
 
 td {
   text-align: right;
+}
+
+h3 {
+  text-align: left;
+  width: 350px;
+  margin-bottom: 0;
+}
+
+form {
+  border-style: double;
+  border-width: 2px;
+  border-color: black;
+  width: 300px;
+  background-color: #33ccff;
+  align-items: stretch;
+  display: inline-block;
+}
+
+form p {
+  color: black;
+}
+
+/*fieldset {
+  display: none;
+  border-style: hidden;
+  margin: 2px;
+}*/
+
+input {
+  align-items: flex-end;
+  background-color: #e0ffff;
 }
