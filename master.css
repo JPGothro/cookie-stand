@@ -6,7 +6,7 @@
 
 body {
   width: 100%;
-  height: 900px;
+  height: 100%;
   background-color: #e0ffff;
 }
 
@@ -20,7 +20,9 @@ h1 {
 .big_main {
   margin: 0 auto;
   width: 100%;
-  background-image: url("http://images.media-allrecipes.com/images/50856.jpg");
+  /*background-image: url("http://images.media-allrecipes.com/images/50856.jpg");*/
+  height: 350px;
+  background-image: url("img/frosted-cookie.jpg");
   background-repeat: repeat;
 }
 
@@ -35,25 +37,90 @@ main {
   font-family: Georgia, Times, serif;
 }
 
-#bears {
-  text-decoration: blink;
+.family_img {
+  width: 100%;
+  height: 144px;
+  margin: 5px;
+  background-image: url("img/family.jpg");
+  background-size: contain;
+  background-size: 20%;
 }
 
 h2 {
   text-align: center;
 }
 
-p {
-  width: 53%;
+.main_text_wrapper p {
+  width: 65%;
   margin: 0 auto;
   color: #1A1AFF;
   text-align: center;
   padding: 3px;
 }
 
-.nav_item {
+.image_block {
+  width: 100%;
+  height: 400px;
+  margin: 0px;
+
+}
+
+.image_group {
+  color: black;
+  background-color: black;
+}
+
+.product_display {
+  width: 100%;
+  height: 100%;
+}
+
+.product_display img {
+  margin-left: 350px;
+}
+
+.product_display p {
+  width: 100px;
+  margin: 14px;
+  display: inline-block;
+  color: black;
+  text-align: center;
+}
+
+.main_about_us {
+    width: 800px;
+    color: #ff4d4d;
+    text-align: center;
+    font-family: Georgia, Times, serif;
+    margin: 0 auto;
+}
+
+.main_about_us p {
+  width: 80%;
+  color: black;
+}
+
+a {
+   float: right;
+}
+
+.about_us_text {
+  text-align: center;
+  background-color: lightblue;
+}
+
+nav ul {
+  width: 100%;
   list-style-type: none;
 }
+
+.nav_item {
+  display: inline-block;
+  margin-left: 10px;
+  /*background-color: palegreen;*/
+}
+
+/* sales page style */
 
 #store_data, #store_cust_data {
   width: 1500px;
@@ -133,4 +200,34 @@ form p {
 input {
   align-items: flex-end;
   background-color: #e0ffff;
+}
+
+/*
+#navbar ul{
+      list-style: none;
+      position: absolute;
+      left: -9999px; /*Hide off-screen when not hovered over*//*
+      }
+
+
+#navbar li:hover img {
+      position: absolute;
+      left: 0; /*Bring back on-screen when needed*//*
+      }
+*/
+
+#sales_page:hover {
+
+}
+
+.events_list {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.events_list ul {
+  width: 200px;
+  margin: 0 auto;
+  margin-left: 0px;
+  list-style-type: square;
 }
