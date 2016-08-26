@@ -264,8 +264,6 @@ addStoreForm.addEventListener('submit', handleSubmit);
 function handleSubmit() {
   event.preventDefault();
 
-  console.log('event target passed to submit', event.target);
-
   // we could use some validation of the input here.... before we act on it
   // call the validation function...
   var isValid = validateAddStore(event.target);
@@ -277,8 +275,6 @@ function handleSubmit() {
     var newAvgCookies = parseFloat(event.target.avg_cookies_purch.value);
 
     var newStore = new Store(newStoreName, newMinNumCust, newMaxNumCust, newAvgCookies);
-
-    console.log('added new store:', newStore);
 
     allStores.push(newStore);
 
