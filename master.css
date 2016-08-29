@@ -17,10 +17,9 @@ h1 {
   font-family: 'Architects Daughter', cursive;
 }
 
-.big_main {
+.common_main {
   margin: 0 auto;
   width: 100%;
-  /*background-image: url("http://images.media-allrecipes.com/images/50856.jpg");*/
   height: 350px;
   background-image: url("img/frosted-cookie.jpg");
   background-repeat: repeat;
@@ -47,7 +46,9 @@ main {
 }
 
 h2 {
+  color: #ff4d4d;
   text-align: center;
+  font-family: Georgia, Times, serif;
 }
 
 .main_text_wrapper p {
@@ -59,10 +60,17 @@ h2 {
 }
 
 .image_block {
-  width: 100%;
-  height: 400px;
-  margin: 0px;
+  width: 480px;
+  margin: 0px auto;
+  border: 3px solid #ff3333;
+  border-radius: 20px;
+}
 
+.image_block img {
+  width: 480px;
+  height: 180px;
+  border-radius: 20px;
+  padding: 0px;
 }
 
 .image_group {
@@ -70,19 +78,27 @@ h2 {
   background-color: black;
 }
 
+.all_products {
+  width: 1200px;
+  margin: 0 auto;
+}
+
 .product_display {
-  width: 100%;
-  height: 100%;
+  /*width: 500px;*/
+  height: 350px;
+  display: flex;
 }
 
 .product_display img {
+  width: 350px;
+  height: 350px;
   margin-left: 350px;
 }
 
 .product_display p {
   width: 100px;
   margin: 14px;
-  display: inline-block;
+  /*display: inline-block;*/
   color: black;
   text-align: center;
 }
@@ -97,6 +113,7 @@ h2 {
 
 .main_about_us p {
   width: 80%;
+  margin: 0 auto;
   color: black;
 }
 
@@ -171,6 +188,10 @@ td {
   text-align: right;
 }
 
+tfoot {
+  font-weight: bold;
+}
+
 h3 {
   text-align: left;
   width: 350px;
@@ -222,7 +243,7 @@ input {
 
 .events_list {
   width: 300px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .events_list ul {
@@ -230,4 +251,8 @@ input {
   margin: 0 auto;
   margin-left: 0px;
   list-style-type: square;
+}
+
+.events_list li {
+  text-align: left;
 }
