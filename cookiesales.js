@@ -102,11 +102,16 @@ function clearFooterData() {
 }
 
 function populateTables() {
+  // create an explanatory variable for the store we are working on.
+  var currentStore;
+
   // clear any totals to be used
   for (var s = 0; s < allStores.length; s++) {
+    // set the store we are currently working on to currentStore
+    currentStore = allStores[s];
     // for each store, reset total values, clear customer array data
-    allStores[s].totalCookies = 0;
-    allStores[s].hourlyCustomers = [];
+    currentStore.totalCookies = 0;
+    currentStore.hourlyCustomers = [];
   }
 
   clearFooterData();
@@ -116,17 +121,20 @@ function populateTables() {
   createHdr(salesTable);
 
   var salesBody  = document.createElement('tbody');
+
   // now for each store, get it's data
   for (var m = 0; m < allStores.length; m++) {
-    allStores[m].createCookieTableData();
+    // set the store we are currently working on to currentStore
+    currentStore = allStores[m];
+    currentStore.createCookieTableData();
     // put row of data into body
-    salesBody.appendChild(allStores[m].tableRow);
+    salesBody.appendChild(currentStore.tableRow);
 
     // while we are looping through the stores, generate hourly TOTALS
-    for (var c = 0; c < allStores[m].hourlyCookies.length; c++){
-      footTotals[c] += allStores[m].hourlyCookies[c];
+    for (var c = 0; c < currentStore.hourlyCookies.length; c++){
+      footTotals[c] += currentStore.hourlyCookies[c];
     }
-    footGrandTotal += allStores[m].totalCookies;
+    footGrandTotal += currentStore.totalCookies;
   }
   // put the body into the table
   salesTable.appendChild(salesBody);
@@ -148,13 +156,15 @@ function populateTables() {
 
   var custBody  = document.createElement('tbody');
   for (var i = 0; i < allStores.length; i++) {
-    custBody.appendChild(allStores[i].createCustTableData());
+    // set the store we are currently working on to currentStore
+    currentStore = allStores[i];
+    custBody.appendChild(currentStore.createCustTableData());
     //
     // while we are looping through the stores, generate hourly TOTALS
-    for (var d = 0; d < allStores[i].hourlyCustomers.length; d++) {
-      footTotals[d] += allStores[i].hourlyCustomers[d];
+    for (var d = 0; d < currentStore.hourlyCustomers.length; d++) {
+      footTotals[d] += currentStore.hourlyCustomers[d];
     }
-    footGrandTotal += allStores[i].totalCustForStore;
+    footGrandTotal += currentStore.totalCustForStore;
   };
 
   custTable.appendChild(custBody);
@@ -171,20 +181,22 @@ function populateTables() {
 // create the header and append it to the passed table
 function createHdr(theTable) {
   // create table header here
-  var hoursOpenArray = [];
-  var hour = 0;
-  var hourText = '';
-  for (var h = 0; h < 14; h++) {
-    hour = h + 6;
-    if (hour > 12) {
-      hourText = (hour - 12) + ':00 pm';
-    } else if ( hour < 12) {
-      hourText = hour + ':00 am';
-    } else {
-      hourText = hour + ':00 pm';
-    };
-    hoursOpenArray[h] = hourText;
-  };
+  var hoursOpenArray = ['6:00 am', '7:00 am', '8:00 am', '9:00 am', '10:00 am', '11:00 am', '12:00 pm', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm', '5:00 pm', '6:00 pm', '7:00 pm'];
+
+  // var hoursOpenArray = [];
+  // var hour = 0;
+  // var hourText = '';
+  // for (var h = 0; h < 14; h++) {
+  //   hour = h + 6;
+  //   if (hour > 12) {
+  //     hourText = (hour - 12) + ':00 pm';
+  //   } else if ( hour < 12) {
+  //     hourText = hour + ':00 am';
+  //   } else {
+  //     hourText = hour + ':00 pm';
+  //   };
+  //   hoursOpenArray[h] = hourText;
+  // };
 
   var salesHeader = document.createElement('thead');
   var headerRow   = document.createElement('tr');
@@ -209,7 +221,7 @@ function createHdr(theTable) {
 
 // create the footer and append it to the passed table.
 function createFtr (theTable) {
-  // TODO: work the details out for the footer
+
   var salesFoot = document.createElement('tfoot');
   var footRow  = document.createElement('tr');
   var footHdr   = document.createElement('th');
@@ -222,7 +234,7 @@ function createFtr (theTable) {
     footData.textContent = footTotals[f];
     footRow.appendChild(footData);
   };
-  // add one more for the total column
+  // add one more data cell for the total column
   var tdTotal = document.createElement('td');
   tdTotal.textContent = footGrandTotal;
   footRow.appendChild(tdTotal);
@@ -252,7 +264,6 @@ var footTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var footGrandTotal = 0;
 
 populateTables();
-
 
 // ================ Adding a store: can only happen after the sales page is loaded
 var addStoreForm = document.getElementById('add_store_form');
@@ -300,44 +311,27 @@ function validateAddStore(formInput) {
   var inputValid = true;
 
   // grab the input data
-  var inputStoreName  = formInput.store_name.value;
   var inputMinNumCust = formInput.min_num_cust.value;
   var inputMaxNumCust = formInput.max_num_cust.value;
   var inputAvgCookies = formInput.avg_cookies_purch.value;
 
-  if (inputStoreName.length < 1) {
-    console.log('No Store Name', formInput);
-    alert('Store Name Missing.');
-    inputValid = false;
-  }
-
-  if (inputMinNumCust.length < 1) {
-    console.log('No Minimum customer data', formInput);
-    alert('Minimum Customer per hour Missing.');
-    inputValid = false;
-  } else if (isNaN(parseInt(inputMinNumCust))) {
+  // because the html says all these inputs are required, no
+  // need to check for lack of input.
+  if (isNaN(parseInt(inputMinNumCust))) {
     // not numeric input
     console.log('Minimum customer data was not numeric', formInput);
     alert('Minimum Customer per hour was not numeric.');
     inputValid = false;
   }
 
-  if (inputMaxNumCust.length < 1) {
-    console.log('No Maximum customer data', formInput);
-    alert('Maximum Customer per hour Missing.');
-    inputValid = false;
-  } else if (isNaN(parseInt(inputMaxNumCust))) {
+  if (isNaN(parseInt(inputMaxNumCust))) {
     // not numeric input
     console.log('Maximum customer data was not numeric', formInput);
     alert('Maximum Customer per hour was not numeric.');
     inputValid = false;
   }
 
-  if (inputAvgCookies.length < 1) {
-    console.log('No Average Cookie data', formInput);
-    alert('Average Cookies per customer Missing.');
-    inputValid = false;
-  } else if (isNaN(parseFloat(inputAvgCookies))) {
+  if (isNaN(parseFloat(inputAvgCookies))) {
     // not numeric input
     console.log('Average Cookie data was not numeric', formInput);
     alert('Average Cookies per customer was not numeric.');
